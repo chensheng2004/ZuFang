@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查看所有用户</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+</head>
+<body>
+<div class="layui-fluid" style="margin-top: 40px;">
+    <table id="allUser" lay-filter="user">
+        <section class="layui-container">
+            <div class="house-detail" th:if="${orders} != 0">
+                <ul>
+                    <forEach th:each="o: ${orders}">
+                        <li>
+                            <div class="show-details">
+                                <h1 th:text="'订单Id：'+${o.orderId}"></h1>
+                                <br>
+                                    <span  th:text="'房源Id:'+${o.houseId}"></span>
+                                <a th:href="@{'/housesdetail?houseId='+${o.houseId}}">
+                                    <button>查看</button>
+                                </a>
+                                <br>
+                                    <span  th:text="'用户Id:'+${o.userId}"></span>
+                                <br>
+                                <span th:text="'预定时间:'+${o.orderTime}">
+                                </span>
+                            </div>
+                        </li>
+                    </forEach>
+                </ul>
+
+                <form method="post" ></form>
+            </div>
+
+            <div class="house-detail" th:if="${orders} == 0">
+                <h2>当前无任何订单</h2>
+            </div>
+
+        </section>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hose.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.hose.pojo.Order" >
+    <id column="order_id" property="orderId" jdbcType="INTEGER" />
+    <result column="house_id" property="houseId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_time" property="orderTime" jdbcType="DATE" />
+  </resultMap>
+
+  <insert id="insert" parameterType="com.hose.pojo.Order" keyProperty="orderId" useGeneratedKeys="true">
+    insert into `order` (house_id, user_id,
+      order_time)
+    values  (#{houseId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER},
+      #{orderTime,jdbcType=DATE})
+  </insert>
+  <select id="selectspecifying" resultType="com.hose.pojo.Order">
+    select *
+    from `order`
+    where house_id=#{houseId} and user_id=#{userId}
+  </select>
+  <select id="selectAllByUserId" resultType="com.hose.pojo.Order">
+    select *
+    from `order`
+    where user_id=#{userId}
+  </select>
+</mapper>

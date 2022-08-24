@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/layui/css/layui.css"/>
+    <title>胜房网</title>
+    <link rel="stylesheet" href="/css/global.css">
+    <link rel="icon" href="/img/logo.png" sizes="15x16">
+    <script src="/layui/layui.js"></script>
+</head>
+<body>
+<!--轮播图-->
+<div class="layui-carousel" id="bg-item">
+    <div class="layui-header title">
+        <div class="layui-container">
+                <div class="personalCenter layui-pull-right">
+                    <a th:href="@{/personalCenter}" style="color:#fff">
+                        <i class="layui-icon layui-icon-tree"></i> 个人中心</a>
+                </div>
+        </div>
+    </div>
+    <!--搜索框-->
+    <div class="layui-container">
+        <div class="search-input">
+            <form class="search-form layui-form" method="get" th:action="@{/Morehouses}">
+                <div class="layui-pull-left input">
+                    <input type="text" placeholder="请输入房源特征、房型、小区名..." name="keywords" class="search layui-input"
+                           lay-verify="">
+                </div>
+                <div class="layui-pull-left button">
+                    <button class="btn search-btn" lay-submit>
+                        <p  style="font-size: 24px;" th:value="搜索">搜索</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div carousel-item>
+        <div style="background: url('/img/w1.jpg')no-repeat center/cover"></div>
+        <div style="background: url('/img/w2.jpg')no-repeat center/cover"></div>
+        <div style="background: url('/img/w3.jpg')no-repeat center/cover"></div>
+        <div style="background: url('/img/w4.jpg')no-repeat center/cover"></div>
+    </div>
+</div>
+
+
+<!--内容开始-->
+<div class="list_control_bar layui-container">
+    <div>
+        <div class="list_title layui-pull-left"><span>全部房源</span></div>
+        <div class="list_more">
+            <ul class="layui-pull-right list-item">
+                <li class="click-this"><a th:href="@{/Morehouses}">更多</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<section class="layui-container">
+    <div class="house-detail">
+        <ul>
+            <forEach th:each="houses: ${houses}">
+                <li>
+                    <a  target="_blank" th:href="@{'/housesdetail?houseId='+${houses.houseId}}" class="show-image">
+                        <img th:src="'/temporaryfiles/'+${houses.houseImageName}" width="200px" height="150px">
+                    </a>
+                    <div class="show-details">
+                        <p class="house-title">
+                            <a  target="_blank" th:href="@{'/housesdetail?houseId='+${houses.houseId}}" th:text="${houses.houseDescription }"></a>
+                        </p>
+                        <p class="house-about">
+                            <span th:text="'厅室：'+${houses.houseModel}"></span>
+                            <span class="flag-line">|</span>
+                            <span th:text="'面积:'+${houses.houseArea}"><sup>2</sup></span>
+                            <span class="flag-line">|</span>
+                            <span th:text="'出售类型:'+${houses.houseType}"></span>
+                        </p>
+                        <p class="house-address clearfix">
+                            <span class="whole-line">
+			    		        <span th:text="'地址'+${houses.houseAddress}"></span>
+					        </span>
+                        </p>
+                        <div class="show-price">
+                            <span class="sale-price" th:text="'价格:'+${houses.housePrice}"></span>
+                            <span class="sale-unit">元/月</span>
+                        </div>
+                    </div>
+                </li>
+            </forEach>
+        </ul>
+
+    </div>
+
+    <div class="house-detail" th:if="${HouseNumber==0}">
+        <h2>当前无任何房源</h2>
+    </div>
+
+</section>
+<footer>
+    <p>找房租房 就上胜房网 优质房源放心买</p>
+</footer>
+<script>
+    layui.use(['element', 'carousel', 'layer', 'form'], function () {
+        let element = layui.element,
+            carousel = layui.carousel,
+            $ = layui.jquery,
+            layer = layui.layer,
+            form = layui.form;
+
+        let layer_index;
+        carousel.render({
+            elem: "#bg-item",
+            width: "100%",
+            height: "800px",
+            anim: "fade"
+        });
+        $('.operation').click(function () {
+            layer_index = layer.open({
+                type: 1,
+                content: $('#sign'),
+                area: ['360px', '460px'],
+                title: "胜房网",
+                closeBtn: 2
+            });
+        });
+        $('.list-item li').click(function () {
+            $('.list-item li').removeClass('click-this');
+            $(this).addClass('click-this');
+        });
+
+
+    });
+</script>
+</body>
+</html>

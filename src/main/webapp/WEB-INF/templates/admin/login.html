@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员登录</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="icon" href="/img/logo.png" sizes="15x16">
+</head>
+<body>
+
+    <div class="login-panel">
+        <h3>管理员登录</h3>
+        <hr class="layui-bg-orange">
+        <div class="login">
+
+            <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+
+            <form class="layui-form layui-form-pane admin-form" method="post" th:action="@{/admin/login}" >
+                <div class="layui-form-item">
+                    <label class="layui-form-label">账&emsp;号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="accountName" required lay-verify="required" placeholder="请输入管理员账号"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密&emsp;码</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="password" required lay-verify="required" placeholder="请输入管理员密码"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <button lay-submit lay-filter="admin"
+                            class="layui-btn layui-btn-fluid layui-btn-lg layui-btn-warm layui-btn-radius">登录
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>发布房源</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="icon" href="/img/logo.png" sizes="15x16">
+</head>
+<body>
+<div class="wrapper" style="width: 900px;margin-top: 40px">
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend style="font-size: 26px">发布房源信息</legend>
+    </fieldset>
+    <form id="addHouseForm" method="post" enctype="multipart/form-data" th:action="@{/addHouse/ok}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">房源描述</label>
+            <div class="layui-input-block">
+                <input type="hidden" name="publisher" value="${loginUser.userNickName }">
+                <textarea name="houseDescription" placeholder="请输入内容" class="layui-textarea"
+                          lay-verify="required"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">房屋类型</label>
+            <div class="layui-input-block">
+                <input type="text" name="houseModel"  lay-verify="required" placeholder="几室几厅"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">房屋面积</label>
+            <div class="layui-input-block">
+                <input type="text" name="houseArea"  lay-verify="required" placeholder=""
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">房屋楼层</label>
+            <div class="layui-input-block">
+                <input type="text" name="houseFloor"  lay-verify="required" placeholder="高层/低层/几楼"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">出租方式</label>
+            <div class="layui-input-block">
+                <select name="houseType" >
+                    <option value="转租">转租</option>
+                    <option value="整租">整租</option>
+                    <option value="合租">合租</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">地&emsp;&emsp;址</label>
+            <div class="layui-input-block">
+                <input type="text" name="houseAddress"  lay-verify="required" placeholder=""
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">租房价格</label>
+            <div class="layui-input-block">
+                <input type="text" name="housePrice"  lay-verify="required|number" placeholder=""
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系人</label>
+            <div class="layui-input-block">
+                <input type="text" name="houseLinkman"  lay-verify="required" placeholder=""
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">联系电话</label>
+            <div class="layui-input-block">
+                <input type="text" name="housePhonenumber"  lay-verify="required|phone" placeholder=""
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+            <legend>上传图片</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-upload layui-input-block">
+                <input  type="file" name="houseImage1" class="layui-btn layui-btn-primary" id="briefImage">
+            </div>
+        </div>
+        <hr>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn"  lay-filter="addHouseRecord" id="addHouseRecord-btn">现在发布</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

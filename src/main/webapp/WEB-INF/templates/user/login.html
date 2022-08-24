@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>胜房网</title>
+  <!-- Bootstrap core CSS -->
+  <link href="/css/bootstrap.min.css"  rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="/css/signin.css" rel="stylesheet">
+  <link rel="icon" href="/img/logo.png" sizes="15x16">
+</head>
+
+<body class="text-center">
+<form class="form-signin" th:action="@{/index}"  method="post">
+  <img class="mb-4" src="/img/logo.png" alt="" width="72" height="72">
+  <h1 class="h3 mb-3 font-weight-normal" th:text="登录">登录</h1>
+
+  <p style="color: red" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+
+  <label class="sr-only" th:text="账号">账号</label>
+  <input type="text" name="userName" class="form-control" placeholder="账号" >
+  <label class="sr-only" th:text="密码">密码</label>
+  <input type="password" name="userPassword" class="form-control" placeholder="密码">
+
+  <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="登录">登录</button>
+
+  <p></p>
+  <a th:href="@{/register}">
+    <button class="btn btn-lg btn-primary btn-block" type="button" th:text="注册">
+      注册
+    </button>
+  </a>
+
+  <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
+
+</form>
+</body>
+
+</html>

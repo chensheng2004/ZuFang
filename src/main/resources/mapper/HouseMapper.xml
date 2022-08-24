@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hose.mapper.HouseMapper" >
+  <resultMap id="BaseResultMap" type="com.hose.pojo.House" >
+    <id column="house_id" property="houseId" jdbcType="INTEGER" />
+    <result column="house_description" property="houseDescription" jdbcType="VARCHAR" />
+    <result column="house_model" property="houseModel" jdbcType="VARCHAR" />
+    <result column="house_area" property="houseArea" jdbcType="VARCHAR" />
+    <result column="house_floor" property="houseFloor" jdbcType="VARCHAR" />
+    <result column="house_type" property="houseType" jdbcType="VARCHAR" />
+    <result column="house_price" property="housePrice" jdbcType="INTEGER" />
+    <result column="house_address" property="houseAddress" jdbcType="VARCHAR" />
+    <result column="house_linkman" property="houseLinkman" jdbcType="VARCHAR" />
+    <result column="house_phonenumber" property="housePhonenumber" jdbcType="VARCHAR" />
+    <result column="house_image_name" property="houseImageName" jdbcType="VARCHAR" />
+    <result column="house_time" property="houseTime" jdbcType="DATE" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="house_image" property="houseImage" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hose.pojo.House" keyProperty="houseId"  useGeneratedKeys="true">
+    insert into house (house_description, house_model,
+      house_area, house_floor, house_type, 
+      house_price, house_address, house_linkman, 
+      house_phonenumber, house_image_name, house_time, 
+      user_id, house_image)
+    values (#{houseDescription,jdbcType=VARCHAR}, #{houseModel,jdbcType=VARCHAR},
+      #{houseArea,jdbcType=VARCHAR}, #{houseFloor,jdbcType=VARCHAR}, #{houseType,jdbcType=VARCHAR}, 
+      #{housePrice,jdbcType=INTEGER}, #{houseAddress,jdbcType=VARCHAR}, #{houseLinkman,jdbcType=VARCHAR}, 
+      #{housePhonenumber,jdbcType=VARCHAR}, #{houseImageName,jdbcType=VARCHAR}, #{houseTime,jdbcType=DATE}, 
+      #{userId,jdbcType=INTEGER}, #{houseImage,jdbcType=LONGVARBINARY})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.hose.pojo.House" >
+    update house
+    set house_description = #{houseDescription,jdbcType=VARCHAR},
+      house_model = #{houseModel,jdbcType=VARCHAR},
+      house_area = #{houseArea,jdbcType=VARCHAR},
+      house_floor = #{houseFloor,jdbcType=VARCHAR},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      house_price = #{housePrice,jdbcType=INTEGER},
+      house_address = #{houseAddress,jdbcType=VARCHAR},
+      house_linkman = #{houseLinkman,jdbcType=VARCHAR},
+      house_phonenumber = #{housePhonenumber,jdbcType=VARCHAR},
+      house_image_name = #{houseImageName,jdbcType=VARCHAR},
+      house_time = #{houseTime,jdbcType=DATE},
+      user_id = #{userId,jdbcType=INTEGER},
+      house_image = #{houseImage,jdbcType=LONGVARBINARY}
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select house_id, house_description, house_model, house_area, house_floor, house_type, 
+    house_price, house_address, house_linkman, house_phonenumber, house_image_name, house_time, 
+    user_id, house_image
+    from house
+    where house_id = #{houseId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select house_id, house_description, house_model, house_area, house_floor, house_type, 
+    house_price, house_address, house_linkman, house_phonenumber, house_image_name, house_time, 
+    user_id, house_image
+    from house
+    where user_id!=#{userId}
+  </select>
+  <select id="selectAllTheHouses" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM house
+  </select>
+  <select id="selectMyHousesnumber" resultType="java.lang.Integer">
+    SELECT COUNT(*)
+    FROM house
+    WHERE user_id=#{userId}
+  </select>
+  <select id="selectMyHouses" resultType="com.hose.pojo.House">
+    SELECT *
+    FROM house
+    WHERE user_id=#{userId}
+  </select>
+  <select id="selectAllPriceAscending" resultType="com.hose.pojo.House">
+    SELECT *
+    FROM house
+    where user_id!=#{userId}
+    ORDER BY house_price
+  </select>
+  <select id="selectAllPriceDescending" resultType="com.hose.pojo.House">
+    SELECT *
+    FROM house
+    where user_id!=#{userId}
+    ORDER BY house_price DESC
+  </select>
+  <select id="searchResult" resultType="com.hose.pojo.House">
+    SELECT *
+    FROM house
+    WHERE house_description LIKE "%"#{keywords}"%" ||
+          house_model LIKE "%"#{keywords}"%" ||
+          house_area LIKE "%"#{keywords}"%" ||
+          house_price LIKE "%"#{keywords}"%" ||
+          house_type LIKE "%"#{keywords}"%" ||
+          house_address LIKE "%"#{keywords}"%"
+  </select>
+
+</mapper>

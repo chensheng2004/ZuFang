@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>我的房源</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/global.css">
+    <script src="layui/layui.js"></script>
+    <link rel="icon" href="/img/logo.png" sizes="15x16">
+</head>
+<body>
+
+<div >
+    <a th:href="@{/addHouse}" target="iframe" th:if="${ifadmin !=1}">
+        <button class="layui-btn" lay-submit  type="button">
+            发布房源
+        </button>
+    </a>
+</div>
+
+<section class="layui-container">
+
+    <hr>
+    <h2 th:text="'共找到'+${HouseNumber}+'套出租房源'"></h2>
+    <div class="house-detail">
+        <ul>
+            <forEach th:each="houses: ${houses}">
+                <li>
+                    <a  target="_blank" th:href="@{'/housesdetail?houseId='+${houses.houseId}}" class="show-image">
+                        <img th:src="'/temporaryfiles/'+${houses.houseImageName}" width="200px" height="150px">
+                    </a>
+                    <div class="show-details">
+                        <p class="house-title">
+                            <a  target="_blank" th:href="@{'/housesdetail?houseId='+${houses.houseId}}" th:text="${houses.houseDescription }"></a>
+                        </p>
+                        <p class="house-about">
+                            <span th:text="'厅室：'+${houses.houseModel}"></span>
+                            <span class="flag-line">|</span>
+                            <span th:text="'面积:'+${houses.houseArea}"><sup>2</sup></span>
+                            <span class="flag-line">|</span>
+                            <span th:text="'出售类型:'+${houses.houseType}"></span>
+                        </p>
+                        <p class="house-address clearfix">
+                            <span class="whole-line">
+			    		        <span th:text="'地址'+${houses.houseAddress}"></span>
+					        </span>
+                        </p>
+                        <div class="show-price">
+                            <span class="sale-price" th:text="'价格:'+${houses.housePrice}"></span>
+                            <span class="sale-unit">元/月</span>
+
+                            <a th:href="@{'/deleteHouse?houseId='+${houses.houseId}}">
+                                <button class="layui-btn" lay-submit  type="button">
+                                    删除房源
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            </forEach>
+        </ul>
+
+        <form method="post" ></form>
+    </div>
+
+    <div class="house-detail" th:if="${HouseNumber==0}">
+        <h2>当前无任何房源</h2>
+    </div>
+
+</section>
+
+
+</body>
+</html>
